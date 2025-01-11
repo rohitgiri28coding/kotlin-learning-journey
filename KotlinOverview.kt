@@ -224,4 +224,176 @@ fun main(){
         cakesEaten++
     }
 
+    println(sum(1, 2))
+
+
+    classTest()
 }
+
+// -------------------------------------------------------------------------//
+                        // FUNCTION
+//Function parameters are written within parentheses ().
+//Each parameter must have a type, and multiple parameters must be separated by commas ,.
+//The return type is written after the function's parentheses (), separated by a colon :.
+//The body of a function is written within curly braces {}.
+//The return keyword is used to exit or return something from a function.
+
+fun sum(x: Int, y: Int): Int {
+    return x + y
+}
+
+        // Single-expression functions
+fun sumFn(x: Int, y: Int) = x + y
+
+
+        // Lambda expressions
+fun lambdaFn() {
+    val upperCaseStrings= { text: String -> text.uppercase() }
+
+    // explicitly specifying the function type
+    val upperCaseString: (String) -> String = { text: String -> text.uppercase() }
+    println(upperCaseString("hello"))
+    println(upperCaseStrings("hello"))
+
+}
+
+// Returning lambda function from a function
+fun toSeconds(time: String): (Int) -> Int = when (time) {
+    "hour" -> { value -> value * 60 * 60 }
+    "minute" -> { value -> value * 60 }
+    "second" -> { value -> value }
+    else -> { value -> value }
+}
+
+fun lambdaFn1() {
+    val timesInMinutes = listOf(2, 10, 15, 1)
+    val min2sec = toSeconds("minute")
+    val totalTimeInSeconds = timesInMinutes.map(min2sec).sum()
+    println("Total time is $totalTimeInSeconds secs")
+    // Total time is 1680 secs
+}
+
+
+// -------------------------------------------------------------------------//
+                        // CLASS
+
+//Properties
+
+// Within parentheses () after the class name.
+class Contact(val id: Int, var email: String)
+
+//Within the class body defined by curly braces {}.
+class Contact1(val id: Int, var email: String) {
+    val category: String = ""
+    fun printId() {
+        println(id)
+    }
+}
+
+//The content contained within parentheses () is called the class header.
+
+
+// declaring properties without val or var
+
+class Rectangle(width: Int, height: Int) {
+    init {
+        require(width > 0) { "Width must be positive" }
+        require(height > 0) { "Height must be positive" }
+    }
+
+    val area: Int = width * height
+}
+
+//Access properties
+
+fun classTest(){
+    val contact = Contact(1, "rohit@gmail.com")
+    println(contact.email)
+
+    val contact1 = Contact1(1, "rohit1@gmail.com")
+    println(contact1.email)
+    contact1.printId()
+
+}
+
+                // Data class
+//Kotlin has data classes which are particularly useful for storing data.
+
+//unlike classes, they come automatically with additional member functions.
+
+data class User(val name: String, val id: Int)
+
+fun dataClassEg(){
+    val user = User("Rohit", 1)
+
+    // Automatically uses toString() function so that output is easy to read
+    println(user)
+
+
+    val secondUser = User("Rohit", 1)
+    val thirdUser = User("Rohan", 2)
+
+    println("user == secondUser: ${user == secondUser}")
+    println("user == thirdUser: ${user == thirdUser}")
+
+
+    //Copy instance
+
+    println(user.copy())
+    println(user.copy(id = 3))
+
+    //Creating a copy of an instance is safer than modifying the
+    // original instance because any code that relies on the original instance
+    // isn't affected by the copy and what you do with it.
+
+}
+
+
+// -------------------------------------------------------------------------//
+                        // NULL
+
+fun nullableFn(){
+
+    //// Nullable types
+
+    // neverNull has String type
+    var neverNull: String = "This can't be null"
+
+    // Throws a compiler error
+    //neverNull = null
+
+    // nullable has nullable String type
+    var nullable: String? = "You can keep a null here"
+
+    // This is OK
+    nullable = null
+
+    // By default, null values aren't accepted
+    var inferredNonNull = "The compiler assumes non-nullable"
+
+    // Throws a compiler error
+    //inferredNonNull = null
+
+    // notNull doesn't accept null values
+    fun strLength(notNull: String): Int {
+        return notNull.length
+    }
+
+    println(strLength(neverNull)) // 18
+    //println(strLength(nullable))  // Throws a compiler error
+
+
+    //Use safe call operator ?.
+    val nullString: String? = null
+    println(lengthString(nullString))
+    // null
+
+    //Use Elvis operator ?:
+    println(nullString?.length ?: 0)
+    // 0
+
+
+
+}
+
+fun lengthString(maybeString: String?): Int? = maybeString?.length

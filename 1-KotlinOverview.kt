@@ -41,14 +41,14 @@ fun main(){
     // Some customers leave the queue
     customers = 8
 
-    customers = customers + 3 // Example of addition: 11
+    customers = customers + 3 // PrivateSetterExample of addition: 11
 
     // +=, -=, *=, /=, and %= are augmented assignment operators.
 
-    customers += 7            // Example of addition: 18
-    customers -= 3            // Example of subtraction: 15
-    customers *= 2            // Example of multiplication: 30
-    customers /= 3            // Example of division: 10
+    customers += 7            // PrivateSetterExample of addition: 18
+    customers -= 3            // PrivateSetterExample of subtraction: 15
+    customers *= 2            // PrivateSetterExample of multiplication: 30
+    customers /= 3            // PrivateSetterExample of division: 10
 
     println(customers) // 10
 
